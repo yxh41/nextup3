@@ -40,6 +40,7 @@ static inline uint64_t NUStateBitForKey(NSString *key) {
     if ([key isEqualToString:@"enabledYouTubeMusic"]) return kNUStateAppYouTubeMusic;
     if ([key isEqualToString:@"enabledYouTube"])     return kNUStateAppYouTube;
     if ([key isEqualToString:@"enabledSpotify"])    return kNUStateAppSpotify;
+    if ([key isEqualToString:@"enabledNetease"])    return kNUStateAppNetease;
     if ([key isEqualToString:@"showLockScreen"])    return kNUStateLockScreen;
     if ([key isEqualToString:@"showDynamicIsland"]) return kNUStateDynamicIsland;
     if ([key isEqualToString:@"showControlCenter"]) return kNUStateControlCenter;

@@ -48,6 +48,7 @@ static inline void NULogWrite(const char *fmt, ...) {
 #define kNUServiceNameYouTubeMusic "com.yves.nextup3.svc.youtubemusic"
 #define kNUServiceNameYouTube      "com.yves.nextup3.svc.youtube"
 #define kNUServiceNameSpotify      "com.yves.nextup3.svc.spotify"
+#define kNUServiceNameNetease      "com.yves.nextup3.svc.netease" // NetEase Cloud Music (com.netease.cloudmusic)
 
 // Darwin notifications (no payload; just signals).
 // "changed" is SHARED by all providers → display: whichever provider's next-up
@@ -59,6 +60,7 @@ static inline void NULogWrite(const char *fmt, ...) {
 #define kNUSkipNotificationYouTubeMusic "com.yves.nextup3.skip.youtubemusic" // display → YTM provider: remove next track
 #define kNUSkipNotificationYouTube      "com.yves.nextup3.skip.youtube"      // display → YouTube provider: remove next video
 #define kNUSkipNotificationSpotify      "com.yves.nextup3.skip.spotify"      // display → Spotify provider: remove next track
+#define kNUSkipNotificationNetease      "com.yves.nextup3.skip.netease"      // display → NetEase provider: remove next track
 // Play-previous: Music does the enqueue display-side (public MPMusicPlayer API), so it
 // needs no notification. Podcasts' enqueue API (MTUpNextController) is in-process, so the
 // display signals the Podcasts provider to re-queue the previous episode itself.
@@ -72,6 +74,9 @@ static inline void NULogWrite(const char *fmt, ...) {
 // exactly the "Play Next" semantic), so it takes the provider-side path as well. Registering this
 // name is also what flips -[NUNextUpManager canActionPrevious] off the adamID requirement.
 #define kNUPrevNotificationSpotify "com.yves.nextup3.prev.spotify" // display → Spotify provider: re-queue previous track
+// NetEase's queue is in-process (like Spotify / YTM), so the display signals the NetEase
+// provider to re-queue the previous track itself rather than using a store-id enqueue.
+#define kNUPrevNotificationNetease "com.yves.nextup3.prev.netease" // display → NetEase provider: re-queue previous track
 // Tap the next-up cover to play it now. Music maps the MediaRemote NextTrack command to
 // "advance to the next queued item" — but iOS 18 Podcasts maps it to a 30s skip, so the
 // display signals the Podcasts (MPC) provider to jump the queue to the next episode instead.

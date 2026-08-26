@@ -54,7 +54,7 @@ static inline BOOL NUIsSpringBoard(void) {
 // YouTube Music, YouTube and Spotify apps are the data providers, so they are NOT display side.
 // Every new provider app MUST be excluded here, or the display hooks initialise inside it too.
 static inline BOOL NUIsDisplaySide(void) {
-    return !NUIsMusic() && !NUIsPodcasts() && !NUIsYouTubeMusic() && !NUIsYouTube() && !NUIsSpotify();
+    return !NUIsMusic() && !NUIsPodcasts() && !NUIsYouTubeMusic() && !NUIsYouTube() && !NUIsSpotify() && !NUIsNetease();
 }
 
 #pragma mark - Shared state (defined in NUHooksShared.m)

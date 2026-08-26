@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, NUSource) {
     NUSourceYouTubeMusic,
     NUSourceYouTube,
     NUSourceSpotify,
+    NUSourceNetease,
 };
 
 // One LightMessaging connection per source (see NUShared.h).
@@ -53,6 +54,7 @@ static LMConnection gConnPodcasts      = { MACH_PORT_NULL, kNUServiceNamePodcast
 static LMConnection gConnYouTubeMusic  = { MACH_PORT_NULL, kNUServiceNameYouTubeMusic };
 static LMConnection gConnYouTube       = { MACH_PORT_NULL, kNUServiceNameYouTube };
 static LMConnection gConnSpotify       = { MACH_PORT_NULL, kNUServiceNameSpotify };
+static LMConnection gConnNetease       = { MACH_PORT_NULL, kNUServiceNameNetease };
 
 static LMConnection *NUConnectionForSource(NUSource s) {
     switch (s) {
@@ -61,6 +63,7 @@ static LMConnection *NUConnectionForSource(NUSource s) {
         case NUSourceYouTubeMusic:  return &gConnYouTubeMusic;
         case NUSourceYouTube:       return &gConnYouTube;
         case NUSourceSpotify:       return &gConnSpotify;
+        case NUSourceNetease:       return &gConnNetease;
         default:                    return NULL;
     }
 }
@@ -70,6 +73,7 @@ static NUSource NUSourceForBundleID(NSString *bid) {
     if ([bid isEqualToString:@"com.google.ios.youtubemusic"])  return NUSourceYouTubeMusic;
     if ([bid isEqualToString:@"com.google.ios.youtube"])       return NUSourceYouTube;
     if ([bid isEqualToString:@"com.spotify.client"])           return NUSourceSpotify;
+    if ([bid isEqualToString:@"com.netease.cloudmusic"])       return NUSourceNetease;
     return NUSourceNone;
 }
 
@@ -83,6 +87,7 @@ static NSString *NUAppPrefKeyForSource(NUSource s) {
         case NUSourceYouTubeMusic:  return @"enabledYouTubeMusic";
         case NUSourceYouTube:       return @"enabledYouTube";
         case NUSourceSpotify:       return @"enabledSpotify";
+        case NUSourceNetease:       return @"enabledNetease";
         default:                    return nil;
     }
 }
@@ -101,6 +106,7 @@ static const char *NUSkipNotificationForSource(NUSource s) {
         case NUSourceYouTubeMusic:  return kNUSkipNotificationYouTubeMusic;
         case NUSourceYouTube:       return kNUSkipNotificationYouTube;
         case NUSourceSpotify:       return kNUSkipNotificationSpotify;
+        case NUSourceNetease:       return kNUSkipNotificationNetease;
         default:                    return NULL;
     }
 }
@@ -110,6 +116,7 @@ static const char *NUPrevNotificationForSource(NUSource s) {
         case NUSourceYouTubeMusic:  return kNUPrevNotificationYouTubeMusic;
         case NUSourceYouTube:       return kNUPrevNotificationYouTube;
         case NUSourceSpotify:       return kNUPrevNotificationSpotify;
+        case NUSourceNetease:       return kNUPrevNotificationNetease;
         default:                    return NULL; // Music (and any display-side-enqueue source)
     }
 }
