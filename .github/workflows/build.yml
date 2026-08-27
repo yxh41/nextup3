@@ -17,18 +17,44 @@ jobs:
       - name: Install tooling
         run: brew install dpkg ldid
 
-      - name: Clone Theos (roothide) + SDK
+      - name: Clone Theos + SDK
         run: |
-          git clone --recursive --depth 1 https://github.com/roothide/theos.git "$THEOS"
+          set -e
+          # Mainline theos supports THEOS_PACKAGE_SCHEME=roothide natively; the
+          # roothide fork's recursive toolchain submodule is flaky to clone on CI.
+          git clone --recursive --depth 1 https://github.com/theos/theos.git "$THEOS"
           rm -rf "$THEOS/sdks"
           git clone --filter=blob:none --sparse --depth 1 https://github.com/theos/sdks.git "$THEOS/sdks"
           git -C "$THEOS/sdks" sparse-checkout set iPhoneOS16.5.sdk
 
       - name: Build package (roothide)
-        run: make package FINALPACKAGE=1
+        run: |
+          set -o pipefail
+          make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide 2>&1 | tee build.log
 
       - name: Upload .deb artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: nextup3-deb
           path: packages/*.deb
+
+      - name: Publish .deb to release (public, downloadable without token)
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          gh release delete ci-build --yes || true
+          git push --delete origin ci-build || true
+          gh release create ci-build packages/*.deb \
+            --title "NextUp3 roothide CI build" \
+            --notes "Automated roothide .deb from push to ${{ github.ref_name }}." \
+            --prerelease
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
