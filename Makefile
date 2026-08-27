@@ -10,9 +10,12 @@ export TARGET := iphone:clang:latest:15.0
 export ARCHS  := arm64 arm64e
 export THEOS_PACKAGE_SCHEME := rootless
 else
+# roothide (Dopamine-roothide). Modern mainline Theos dropped the dedicated
+# "roothide" package scheme; roothide is layout-compatible with "rootless"
+# (both install to /var/jb), so we build with the rootless scheme.
 export TARGET := iphone:clang:latest:15.0
 export ARCHS  := arm64 arm64e
-export THEOS_PACKAGE_SCHEME := roothide
+export THEOS_PACKAGE_SCHEME := rootless
 endif
 
 INSTALL_TARGET_PROCESSES = MediaRemoteUI Music Podcasts SpringBoard YouTubeMusic YouTube Spotify NeteaseMusic  # NOTE: "NeteaseMusic" is the guessed executable name — verify on-device with `ps -A | grep netease`

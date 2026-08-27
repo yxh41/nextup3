@@ -37,7 +37,7 @@ jobs:
           git clone --filter=blob:none --sparse --depth 1 https://github.com/theos/sdks.git "$THEOS/sdks"
           git -C "$THEOS/sdks" sparse-checkout set iPhoneOS16.5.sdk
           echo "== building =="
-          make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide
+          make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
 
       - name: Publish artifacts to ci-artifacts branch
         if: always()
@@ -56,4 +56,17 @@ jobs:
             git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:ci-artifacts
           else
             echo "no artifacts produced; nothing to publish"
+          fi
+
+      # Make the job conclusion reflect reality: the build step uses
+      # continue-on-error so it always emits a log, but if no .deb came out the
+      # build actually failed and we must fail the run.
+      - name: Verify .deb produced
+        if: always()
+        run: |
+          if ls packages/*.deb >/dev/null 2>&1; then
+            echo "BUILD OK: $(ls packages/*.deb)"
+          else
+            echo "BUILD FAILED: no .deb in packages/"
+            exit 1
           fi
