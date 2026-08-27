@@ -1,8 +1,10 @@
 name: Build NextUp3 (roothide)
 
+# Only build the dev branch. Pushing artifacts to ci-artifacts will NOT retrigger
+# this workflow (ci-artifacts is excluded), avoiding a publish->build loop.
 on:
   push:
-    branches: ["*"]
+    branches: ["cn-ntease"]
   workflow_dispatch:
 
 jobs:
@@ -20,34 +22,40 @@ jobs:
       - name: Clone Theos + SDK
         run: |
           set -e
-          # Mainline theos supports THEOS_PACKAGE_SCHEME=roothide natively; the
-          # roothide fork's recursive toolchain submodule is flaky to clone on CI.
           git clone --recursive --depth 1 https://github.com/theos/theos.git "$THEOS"
           rm -rf "$THEOS/sdks"
           git clone --filter=blob:none --sparse --depth 1 https://github.com/theos/sdks.git "$THEOS/sdks"
           git -C "$THEOS/sdks" sparse-checkout set iPhoneOS16.5.sdk
 
       - name: Build package (roothide)
+        id: build
+        continue-on-error: true
         run: |
           set -o pipefail
           make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide 2>&1 | tee build.log
 
-      - name: Publish result to public release
-        if: always()
+      - name: Publish .deb on success
+        if: steps.build.outcome == 'success'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          gh release delete ci-build --yes || true
-          git push --delete origin ci-build || true
-          if ls packages/*.deb >/dev/null 2>&1; then
-            gh release create ci-build packages/*.deb \
-              --title "NextUp3 roothide CI build (${{ github.ref_name }})" \
-              --notes "Automated roothide .deb from push to ${{ github.ref_name }}." \
-              --prerelease
-          else
-            gh release create ci-build build.log \
-              --title "NextUp3 CI build FAILED (${{ github.ref_name }})" \
-              --notes "Build failed. See the build.log asset for the error." \
-              --prerelease
-          fi
+          git config user.email "ci@local"
+          git config user.name "CI"
+          cp packages/*.deb NextUp3.deb
+          git add NextUp3.deb
+          git diff --cached --quiet || git commit -m "ci: NextUp3 roothide .deb (${{ github.sha }})"
+          git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:ci-artifacts
+
+      - name: Publish build.log on failure
+        if: steps.build.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git config user.email "ci@local"
+          git config user.name "CI"
+          cp build.log ci-last-build.log
+          git add ci-last-build.log
+          git diff --cached --quiet || git commit -m "ci: build.log (${{ github.sha }})"
+          git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:ci-artifacts
