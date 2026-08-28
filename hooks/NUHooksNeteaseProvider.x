@@ -23,6 +23,16 @@
     NULog("netease: setupWithSongs index=%lld songs=%lu",
           index, (unsigned long)[(NSArray *)songs count]);
 }
+
+// Broad capture net. setupWithSongs:index:complete: is not guaranteed to fire on
+// every playback path (e.g. resume, radio, "play" from a detail page), and without
+// a captured controller the provider can only report inactive. -currentSong is a
+// plain getter that is queried constantly while music plays, so capturing from
+// here guarantees we hold a live controller shortly after playback starts.
+- (id)currentSong {
+    [[NUNeteaseProvider shared] capturePlayer:self];
+    return %orig;
+}
 %end
 
 %end // NeteaseProvider

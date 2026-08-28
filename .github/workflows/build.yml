@@ -36,8 +36,14 @@ jobs:
           rm -rf "$THEOS/sdks"
           git clone --filter=blob:none --sparse --depth 1 https://github.com/theos/sdks.git "$THEOS/sdks"
           git -C "$THEOS/sdks" sparse-checkout set iPhoneOS16.5.sdk
-          echo "== building =="
+          echo "== building RELEASE (NULog compiled out) =="
           make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          mkdir -p out-rel && cp packages/*.deb out-rel/NextUp3.deb
+          echo "== building DEBUG (NULog + file sink enabled, for field diagnosis) =="
+          make clean
+          rm -rf packages
+          make package DEBUG=1 THEOS_PACKAGE_SCHEME=rootless
+          mkdir -p out-dbg && cp packages/*.deb out-dbg/NextUp3-debug.deb
 
       - name: Publish artifacts to ci-artifacts branch
         if: always()
@@ -49,7 +55,8 @@ jobs:
           git config user.name "CI"
           mkdir -p artifacts
           if [ -f build.log ]; then cp build.log artifacts/ci-last-build.log; fi
-          if ls packages/*.deb >/dev/null 2>&1; then cp packages/*.deb artifacts/NextUp3.deb; fi
+          if [ -f out-rel/NextUp3.deb ]; then cp out-rel/NextUp3.deb artifacts/NextUp3.deb; fi
+          if [ -f out-dbg/NextUp3-debug.deb ]; then cp out-dbg/NextUp3-debug.deb artifacts/NextUp3-debug.deb; fi
           if [ -f artifacts/ci-last-build.log ] || ls artifacts/*.deb >/dev/null 2>&1; then
             # .gitignore contains "*.deb", so force-add the published .deb or it
             # gets silently skipped and never reaches ci-artifacts.
@@ -66,9 +73,17 @@ jobs:
       - name: Verify .deb produced
         if: always()
         run: |
-          if ls packages/*.deb >/dev/null 2>&1; then
-            echo "BUILD OK: $(ls packages/*.deb)"
+          ok=1
+          if [ -f out-rel/NextUp3.deb ]; then
+            echo "BUILD OK (release): $(ls -l out-rel/NextUp3.deb)"
           else
-            echo "BUILD FAILED: no .deb in packages/"
-            exit 1
+            echo "BUILD FAILED: no release .deb"
+            ok=0
           fi
+          if [ -f out-dbg/NextUp3-debug.deb ]; then
+            echo "BUILD OK (debug): $(ls -l out-dbg/NextUp3-debug.deb)"
+          else
+            echo "BUILD FAILED: no debug .deb"
+            ok=0
+          fi
+          [ "$ok" = "1" ] || exit 1

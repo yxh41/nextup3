@@ -64,9 +64,17 @@
 // API: playList / currentSong / _indexOfSong:inSongList:. Title/artist via KVC
 // so we don't need the track class name yet (discover later if KVC fails).
 - (NSDictionary *)nextUpDictionary {
-    if (![self providerEnabled]) return @{ kNUKeyActive : @NO };
+    if (![self providerEnabled]) {
+        NULog("netease: inactive (providerEnabled=NO)");
+        return @{ kNUKeyActive : @NO };
+    }
     id player = self.capturedPlayer;
-    if (!player) return @{ kNUKeyActive : @NO };
+    if (!player) {
+        // Most likely cause of a blank row: setupWithSongs:index:complete: never
+        // fired, so no NMSonglistPlayerController was ever captured.
+        NULog("netease: inactive (capturedPlayer is nil — setupWithSongs never fired?)");
+        return @{ kNUKeyActive : @NO };
+    }
     @try {
         // Class-drift guard: respondToSelector: lets us degrade to inactive if
         // NetEase renames a selector in a future update, instead of crashing.
@@ -76,6 +84,10 @@
         if (![player respondsToSelector:sList] ||
             ![player respondsToSelector:sCur]  ||
             ![player respondsToSelector:sIndex]) {
+            NULog("netease: inactive (missing selectors: playList=%d currentSong=%d indexOfSong=%d)",
+                  (int)[player respondsToSelector:sList],
+                  (int)[player respondsToSelector:sCur],
+                  (int)[player respondsToSelector:sIndex]);
             return @{ kNUKeyActive : @NO };
         }
 #pragma clang diagnostic push
@@ -85,15 +97,22 @@
         // ARM64. ARC can't prove this, so we silence its (false-positive) leak warning.
         NSArray *list = (NSArray *)[player performSelector:sList];
         if (![list isKindOfClass:[NSArray class]] || list.count < 2) {
+            NULog("netease: inactive (playList is %@, count=%lu)",
+                  list ? NSStringFromClass([list class]) : @"nil",
+                  (unsigned long)[(NSArray *)list count]);
             return @{ kNUKeyActive : @NO };
         }
         id cur = [player performSelector:sCur];
-        if (!cur) return @{ kNUKeyActive : @NO };
+        if (!cur) {
+            NULog("netease: inactive (currentSong is nil)");
+            return @{ kNUKeyActive : @NO };
+        }
         unsigned long long idx = (unsigned long long)
             [player performSelector:sIndex withObject:cur withObject:list];
 #pragma clang diagnostic pop
         const unsigned long long kNotFound = (unsigned long long)-1;
         if (idx == kNotFound || idx + 1 >= (unsigned long long)list.count) {
+            NULog("netease: inactive (idx=%llu count=%lu)", idx, (unsigned long)list.count);
             return @{ kNUKeyActive : @NO };
         }
         id next = list[idx + 1];
@@ -106,6 +125,8 @@
         d[kNUKeyTitle]    = title;
         d[kNUKeySubtitle] = artist;
         d[kNUKeyCanSkip]  = @YES;
+        NULog("netease: ACTIVE idx=%llu/%lu next='%@' by '%@'",
+              idx, (unsigned long)list.count, title, artist);
         return d;
     } @catch (__unused NSException *e) {
         return @{ kNUKeyActive : @NO };
