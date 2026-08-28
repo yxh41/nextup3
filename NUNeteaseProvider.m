@@ -78,6 +78,11 @@
             ![player respondsToSelector:sIndex]) {
             return @{ kNUKeyActive : @NO };
         }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        // _indexOfSong:inSongList: returns a scalar (unsigned long long) that is
+        // passed back through the x0 register; reinterpret as bits is correct on
+        // ARM64. ARC can't prove this, so we silence its (false-positive) leak warning.
         NSArray *list = (NSArray *)[player performSelector:sList];
         if (![list isKindOfClass:[NSArray class]] || list.count < 2) {
             return @{ kNUKeyActive : @NO };
@@ -86,6 +91,7 @@
         if (!cur) return @{ kNUKeyActive : @NO };
         unsigned long long idx = (unsigned long long)
             [player performSelector:sIndex withObject:cur withObject:list];
+#pragma clang diagnostic pop
         const unsigned long long kNotFound = (unsigned long long)-1;
         if (idx == kNotFound || idx + 1 >= (unsigned long long)list.count) {
             return @{ kNUKeyActive : @NO };
