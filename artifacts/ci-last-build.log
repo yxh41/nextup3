@@ -1,0 +1,306 @@
++ echo '== cloning theos =='
+== cloning theos ==
++ git clone --recursive --depth 1 https://github.com/theos/theos.git /Users/runner/work/nextup3/nextup3/theos
+Cloning into '/Users/runner/work/nextup3/nextup3/theos'...
+Submodule 'vendor/dm.pl' (https://github.com/theos/dm.pl.git) registered for path 'vendor/dm.pl'
+Submodule 'vendor/include' (https://github.com/theos/headers.git) registered for path 'vendor/include'
+Submodule 'vendor/lib' (https://github.com/theos/lib.git) registered for path 'vendor/lib'
+Submodule 'vendor/logos' (https://github.com/theos/logos.git) registered for path 'vendor/logos'
+Submodule 'vendor/nic' (https://github.com/theos/nic.git) registered for path 'vendor/nic'
+Submodule 'vendor/orion' (https://github.com/theos/orion.git) registered for path 'vendor/orion'
+Submodule 'vendor/swift-support' (https://github.com/theos/swift-support.git) registered for path 'vendor/swift-support'
+Submodule 'vendor/templates' (https://github.com/theos/templates.git) registered for path 'vendor/templates'
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/dm.pl'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/include'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/lib'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/logos'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/nic'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/orion'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/swift-support'...
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/templates'...
+Submodule path 'vendor/dm.pl': checked out 'd9a3b72e274226dd2823c0a7c1d6d05099f4f51c'
+Submodule path 'vendor/include': checked out '13c1f17176d7efe6871551cd69a75b71ac4eeaf1'
+Submodule path 'vendor/lib': checked out '6f2af307568e6b8c52181d26314b0cd69ffaf188'
+Submodule path 'vendor/logos': checked out '777925d1add4ee3485a2432a6f6d5e3ded59de7b'
+Submodule path 'vendor/nic': checked out '4e7adcbeac2e4636b91e2f76341adfe4c4d0ceec'
+Submodule path 'vendor/orion': checked out 'c0ed879ecaae16f3c8d06a6c36302f6c78d1f7e4'
+Submodule 'fishhook' (https://github.com/facebook/fishhook.git) registered for path 'vendor/orion/fishhook'
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/vendor/orion/fishhook'...
+Submodule path 'vendor/orion/fishhook': checked out 'aadc161ac3b80db07a9908851839a17ba63a9eb1'
+Submodule path 'vendor/swift-support': checked out '4cf59ff04cdb2ceb27ea2228753e0497297b6182'
+Submodule path 'vendor/templates': checked out '6c3944e281c4726f1383755d0fbb642840312d28'
++ rm -rf /Users/runner/work/nextup3/nextup3/theos/sdks
++ git clone --filter=blob:none --sparse --depth 1 https://github.com/theos/sdks.git /Users/runner/work/nextup3/nextup3/theos/sdks
+Cloning into '/Users/runner/work/nextup3/nextup3/theos/sdks'...
++ git -C /Users/runner/work/nextup3/nextup3/theos/sdks sparse-checkout set iPhoneOS16.5.sdk
++ echo '== building RELEASE (NULog compiled out) =='
+== building RELEASE (NULog compiled out) ==
++ make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+[0;36m==> [1;36mNotice:[m Build may be slow as Theos isn’t using all available CPU cores on this computer. Consider upgrading GNU Make: https://theos.dev/docs/parallel-building
+[1;31m> [1;3;39mMaking all for tweak NextUp3…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksMusicProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksPodcastProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksPodcastProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeMusicProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpotifyProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpotifyProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNeteaseProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNeteaseProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNowPlaying.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNowPlaying.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenterLegacy.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenterLegacy.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter18.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter26.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter26.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland17.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland17.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland16.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland16.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpringBoard.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpringBoard.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen15.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen15.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen14.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen14.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen18.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksTCC.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksTCC.x (arm64)…[m
+[0;32m==> [1;39mCompiling NUHooksShared.m (arm64)…[m
+[0;32m==> [1;39mCompiling NULogFile.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUProviderBase.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUMusicProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPodcastProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUYouTubeMusicProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUYouTubeProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUSpotifyProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUNeteaseProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUNextUpManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUNextUpRowView.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefs.m (arm64)…[m
+[0;33m==> [1;39mLinking tweak NextUp3 (arm64)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NextUp3…[m
+[0;34m==> [1;39mStripping NextUp3 (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksMusicProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksPodcastProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksPodcastProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeMusicProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpotifyProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpotifyProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNeteaseProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNeteaseProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNowPlaying.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNowPlaying.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenterLegacy.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenterLegacy.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter18.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter26.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter26.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland17.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland17.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland16.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland16.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpringBoard.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpringBoard.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen15.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen15.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen14.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen14.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen18.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksTCC.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksTCC.x (arm64e)…[m
+[0;32m==> [1;39mCompiling NUHooksShared.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NULogFile.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUProviderBase.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUMusicProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPodcastProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUYouTubeMusicProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUYouTubeProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUSpotifyProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUNeteaseProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUNextUpManager.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUNextUpRowView.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPrefs.m (arm64e)…[m
+[0;33m==> [1;39mLinking tweak NextUp3 (arm64e)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NextUp3…[m
+[0;34m==> [1;39mStripping NextUp3 (arm64e)…[m
+[0;34m==> [1;39mMerging tweak NextUp3…[m
+[0;34m==> [1;39mSigning NextUp3…[m
+[1;31m> [1;3;39mMaking all in prefs…[m
+[0;36m==> [1;36mNotice:[m Build may be slow as Theos isn’t using all available CPU cores on this computer. Consider upgrading GNU Make: https://theos.dev/docs/parallel-building
+[1;31m> [1;3;39mMaking all for bundle NUPrefs…[m
+[0;35m==> [1;39mCopying resource directories into the bundle wrapper…[m
+[0;32m==> [1;39mCompiling NUPrefsRootListController.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefsHeaderView.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefsCells.m (arm64)…[m
+[0;32m==> [1;39mCompiling ../NUPrefs.m (arm64)…[m
+[0;33m==> [1;39mLinking bundle NUPrefs (arm64)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NUPrefs…[m
+[0;34m==> [1;39mStripping NUPrefs (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefsRootListController.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPrefsHeaderView.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPrefsCells.m (arm64e)…[m
+[0;32m==> [1;39mCompiling ../NUPrefs.m (arm64e)…[m
+[0;33m==> [1;39mLinking bundle NUPrefs (arm64e)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NUPrefs…[m
+[0;34m==> [1;39mStripping NUPrefs (arm64e)…[m
+[0;34m==> [1;39mMerging bundle NUPrefs…[m
+[0;34m==> [1;39mSigning NUPrefs…[m
+[1;31m> [1;3;39mMaking stage for tweak NextUp3…[m
+[1;31m> [1;3;39mMaking stage in prefs…[m
+[1;31m> [1;3;39mMaking stage for bundle NUPrefs…[m
+dm.pl: building package `com.yves.nextup3:iphoneos-arm64' in `./packages/com.yves.nextup3_1.1.2_iphoneos-arm64.deb'
++ mkdir -p out-rel
++ cp packages/com.yves.nextup3_1.1.2_iphoneos-arm64.deb out-rel/NextUp3.deb
++ echo '== building DEBUG (NULog + file sink enabled, for field diagnosis) =='
+== building DEBUG (NULog + file sink enabled, for field diagnosis) ==
++ make clean
+[0;36m==> [1;39mCleaning…[m
+[1;31m> [1;3;39mMaking clean in prefs…[m
+[0;36m==> [1;39mCleaning…[m
++ rm -rf packages
++ make package DEBUG=1 THEOS_PACKAGE_SCHEME=rootless
+[0;36m==> [1;36mNotice:[m Build may be slow as Theos isn’t using all available CPU cores on this computer. Consider upgrading GNU Make: https://theos.dev/docs/parallel-building
+[1;31m> [1;3;39mMaking all for tweak NextUp3…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksMusicProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksPodcastProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksPodcastProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeMusicProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpotifyProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpotifyProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNeteaseProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNeteaseProvider.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNowPlaying.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNowPlaying.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenterLegacy.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenterLegacy.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter18.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter26.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter26.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland17.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland17.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland16.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland16.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpringBoard.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpringBoard.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen15.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen15.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen14.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen14.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen18.x (arm64)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksTCC.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksTCC.x (arm64)…[m
+[0;32m==> [1;39mCompiling NUHooksShared.m (arm64)…[m
+[0;32m==> [1;39mCompiling NULogFile.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUProviderBase.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUMusicProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPodcastProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUYouTubeMusicProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUYouTubeProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUSpotifyProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUNeteaseProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUNextUpManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUNextUpRowView.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefs.m (arm64)…[m
+[0;33m==> [1;39mLinking tweak NextUp3 (arm64)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NextUp3…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksMusicProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksPodcastProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksPodcastProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeMusicProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeMusicProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksYouTubeProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksYouTubeProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpotifyProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpotifyProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNeteaseProvider.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNeteaseProvider.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksNowPlaying.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksNowPlaying.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenterLegacy.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenterLegacy.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter18.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksControlCenter26.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksControlCenter26.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland17.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland17.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksDynamicIsland16.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksDynamicIsland16.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksSpringBoard.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksSpringBoard.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen15.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen15.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen14.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen14.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksLockScreen18.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksLockScreen18.x (arm64e)…[m
+[0;31m==> [1;39mPreprocessing hooks/NUHooksTCC.x…[m
+[0;32m==> [1;39mCompiling hooks/NUHooksTCC.x (arm64e)…[m
+[0;32m==> [1;39mCompiling NUHooksShared.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NULogFile.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUProviderBase.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUMusicProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPodcastProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUYouTubeMusicProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUYouTubeProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUSpotifyProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUNeteaseProvider.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUNextUpManager.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUNextUpRowView.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPrefs.m (arm64e)…[m
+[0;33m==> [1;39mLinking tweak NextUp3 (arm64e)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NextUp3…[m
+[0;34m==> [1;39mMerging tweak NextUp3…[m
+[0;34m==> [1;39mSigning NextUp3…[m
+[1;31m> [1;3;39mMaking all in prefs…[m
+[0;36m==> [1;36mNotice:[m Build may be slow as Theos isn’t using all available CPU cores on this computer. Consider upgrading GNU Make: https://theos.dev/docs/parallel-building
+[1;31m> [1;3;39mMaking all for bundle NUPrefs…[m
+[0;35m==> [1;39mCopying resource directories into the bundle wrapper…[m
+[0;32m==> [1;39mCompiling NUPrefsRootListController.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefsHeaderView.m (arm64)…[m
+[0;32m==> [1;39mCompiling NUPrefsCells.m (arm64)…[m
+[0;32m==> [1;39mCompiling ../NUPrefs.m (arm64)…[m
+[0;33m==> [1;39mLinking bundle NUPrefs (arm64)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NUPrefs…[m
+[0;32m==> [1;39mCompiling NUPrefsRootListController.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPrefsHeaderView.m (arm64e)…[m
+[0;32m==> [1;39mCompiling NUPrefsCells.m (arm64e)…[m
+[0;32m==> [1;39mCompiling ../NUPrefs.m (arm64e)…[m
+[0;33m==> [1;39mLinking bundle NUPrefs (arm64e)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for NUPrefs…[m
+[0;34m==> [1;39mMerging bundle NUPrefs…[m
+[0;34m==> [1;39mSigning NUPrefs…[m
+[1;31m> [1;3;39mMaking stage for tweak NextUp3…[m
+[1;31m> [1;3;39mMaking stage in prefs…[m
+[1;31m> [1;3;39mMaking stage for bundle NUPrefs…[m
+dm.pl: building package `com.yves.nextup3:iphoneos-arm64' in `./packages/com.yves.nextup3_1.1.2-1+debug_iphoneos-arm64.deb'
++ mkdir -p out-dbg
++ cp packages/com.yves.nextup3_1.1.2-1+debug_iphoneos-arm64.deb out-dbg/NextUp3-debug.deb
