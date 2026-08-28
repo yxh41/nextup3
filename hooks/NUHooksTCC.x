@@ -61,8 +61,13 @@ static NSString *NUUsageDescription(void) {
 %group NUMediaLibraryShim
 
 %hook MPMediaLibrary
-+ (long long)authorizationStatus { return 3; /* Authorized */ }
-+ (void)requestAuthorization:(void (^)(long long))handler { if (handler) handler(3); }
++ (long long)authorizationStatus {
+    return 3; /* Authorized */
+}
+
++ (void)requestAuthorization:(void (^)(long long))handler {
+    if (handler) handler(3);
+}
 // The Play-Next response decoded in MediaRemoteUI references an MPMediaLibrary.
 // Decoding it runs +deviceMediaLibrary, which throws (unlike iOS 17, MediaRemoteUI
 // can't open the media-library DB). That throw happens inside a dispatch_once

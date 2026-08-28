@@ -101,8 +101,17 @@
     });
 }
 
-- (void)didSelectRouteButton:(id)arg1 { BOOL wasOpen = NUCCRoutingViewOpen(self.viewIfLoaded); %orig; [self nu_routeToggled:wasOpen]; }
-- (void)toggleRoutePicker { BOOL wasOpen = NUCCRoutingViewOpen(self.viewIfLoaded); %orig; [self nu_routeToggled:wasOpen]; }
+- (void)didSelectRouteButton:(id)arg1 {
+    BOOL wasOpen = NUCCRoutingViewOpen(self.viewIfLoaded);
+    %orig;
+    [self nu_routeToggled:wasOpen];
+}
+
+- (void)toggleRoutePicker {
+    BOOL wasOpen = NUCCRoutingViewOpen(self.viewIfLoaded);
+    %orig;
+    [self nu_routeToggled:wasOpen];
+}
 
 %end
 

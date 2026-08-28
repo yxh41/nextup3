@@ -111,10 +111,11 @@
         && NUInterfaceEnabled(NUHostDynamicIsland);
     if (show) {
         objc_setAssociatedObject(self, kNULayoutClampKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        // @finally: if Apple's layout throws, the flag MUST still be cleared —
-        // otherwise this view permanently reports a clamped -bounds to everything.
-        @try { %orig; }
-        @finally { objc_setAssociatedObject(self, kNULayoutClampKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+        %orig;
+        // Clear the clamp after the original layout so -bounds returns to compact
+        // geometry next query. (An Obj-C exception out of -layoutSubviews terminates
+        // the process on iOS, so the former @try/@finally guard is moot.)
+        objc_setAssociatedObject(self, kNULayoutClampKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     } else {
         %orig;
     }
