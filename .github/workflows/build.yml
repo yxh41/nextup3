@@ -51,7 +51,9 @@ jobs:
           if [ -f build.log ]; then cp build.log artifacts/ci-last-build.log; fi
           if ls packages/*.deb >/dev/null 2>&1; then cp packages/*.deb artifacts/NextUp3.deb; fi
           if [ -f artifacts/ci-last-build.log ] || ls artifacts/*.deb >/dev/null 2>&1; then
-            git add -A artifacts
+            # .gitignore contains "*.deb", so force-add the published .deb or it
+            # gets silently skipped and never reaches ci-artifacts.
+            git add -A -f artifacts
             git commit -m "ci artifacts (${{ github.sha }})" || echo "nothing to commit"
             git push --force https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:ci-artifacts
           else
