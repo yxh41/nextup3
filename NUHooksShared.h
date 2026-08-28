@@ -47,6 +47,9 @@ static inline BOOL NUIsYouTube(void) {
 static inline BOOL NUIsSpotify(void) {
     return [NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.spotify.client"];
 }
+static inline BOOL NUIsNetease(void) {
+    return [NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.netease.cloudmusic"];
+}
 static inline BOOL NUIsSpringBoard(void) {
     return [NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.apple.springboard"];
 }

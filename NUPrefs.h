@@ -25,6 +25,7 @@
 #define kNUStateDynamicIsland  (1ULL << 4)   // "showDynamicIsland"
 #define kNUStateControlCenter  (1ULL << 5)   // "showControlCenter"
 #define kNUStateAppYouTubeMusic (1ULL << 6)  // "enabledYouTubeMusic"
+#define kNUStateAppNetease     (1ULL << 9)  // "enabledNetease"
 #define kNUStateAppSpotify     (1ULL << 7)   // "enabledSpotify"
 #define kNUStateAppYouTube     (1ULL << 8)   // "enabledYouTube"
 
